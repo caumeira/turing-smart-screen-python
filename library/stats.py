@@ -129,7 +129,7 @@ def display_themed_temperature_value(theme_data, value):
         theme_data=theme_data,
         value=int(value),
         min_size=3,
-        unit="°C"
+        unit="°"
     )
 
 
@@ -203,7 +203,7 @@ def display_themed_temperature_radial_bar(theme_data, value):
         theme_data=theme_data,
         value=int(value),
         min_size=3,
-        unit="°C"
+        unit="°"
     )
 
 

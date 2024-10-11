@@ -64,11 +64,11 @@ if ctypes.windll.shell32.IsUserAnAdmin() == 0:
 handle = Hardware.Computer()
 handle.IsCpuEnabled = True
 handle.IsGpuEnabled = True
-handle.IsMemoryEnabled = True
-handle.IsMotherboardEnabled = True  # For CPU Fan Speed
-handle.IsControllerEnabled = True  # For CPU Fan Speed
-handle.IsNetworkEnabled = True
-handle.IsStorageEnabled = True
+handle.IsMemoryEnabled = False
+handle.IsMotherboardEnabled = False  # For CPU Fan Speed
+handle.IsControllerEnabled = False  # For CPU Fan Speed
+handle.IsNetworkEnabled = False
+handle.IsStorageEnabled = False
 handle.IsPsuEnabled = False
 handle.Open()
 for hardware in handle.Hardware:
@@ -100,6 +100,7 @@ def get_hw_and_update(hwtype: Hardware.HardwareType, name: str = None) -> Hardwa
 def get_gpu_name() -> str:
     # Determine which GPU to use, in case there are multiple : try to avoid using discrete GPU for stats
     hw_gpus = []
+    logger.info("GET GPU NAME")
     for hardware in handle.Hardware:
         if hardware.HardwareType == Hardware.HardwareType.GpuNvidia \
                 or hardware.HardwareType == Hardware.HardwareType.GpuAmd \
@@ -265,6 +266,7 @@ class Gpu(sensors.Gpu):
     # Get GPU to use for sensors, and update it
     @classmethod
     def get_gpu_to_use(cls):
+        logger.info("get_gpu_to_use")
         gpu_to_use = get_hw_and_update(Hardware.HardwareType.GpuAmd, cls.gpu_name)
         if gpu_to_use is None:
             gpu_to_use = get_hw_and_update(Hardware.HardwareType.GpuNvidia, cls.gpu_name)
@@ -276,6 +278,7 @@ class Gpu(sensors.Gpu):
     @classmethod
     def stats(cls) -> Tuple[
         float, float, float, float, float]:  # load (%) / used mem (%) / used mem (Mb) / total mem (Mb) / temp (°C)
+        # return 1, 1, 1, 1, 1
         gpu_to_use = cls.get_gpu_to_use()
         if gpu_to_use is None:
             # GPU not supported
@@ -315,63 +318,67 @@ class Gpu(sensors.Gpu):
 
     @classmethod
     def fps(cls) -> int:
-        gpu_to_use = cls.get_gpu_to_use()
-        if gpu_to_use is None:
-            # GPU not supported
-            return -1
+        # logger.info("fps")
+        # gpu_to_use = cls.get_gpu_to_use()
+        # if gpu_to_use is None:
+        #     # GPU not supported
+        #     return -1
 
-        try:
-            for sensor in gpu_to_use.Sensors:
-                if sensor.SensorType == Hardware.SensorType.Factor and "FPS" in str(
-                        sensor.Name) and sensor.Value is not None:
-                    # If a reading returns a value <= 0, returns old value instead
-                    if int(sensor.Value) > 0:
-                        cls.prev_fps = int(sensor.Value)
-                    return cls.prev_fps
-        except:
-            pass
+        # try:
+        #     for sensor in gpu_to_use.Sensors:
+        #         if sensor.SensorType == Hardware.SensorType.Factor and "FPS" in str(
+        #                 sensor.Name) and sensor.Value is not None:
+        #             # If a reading returns a value <= 0, returns old value instead
+        #             if int(sensor.Value) > 0:
+        #                 cls.prev_fps = int(sensor.Value)
+        #             return cls.prev_fps
+        # except:
+        #     pass
 
         # No FPS sensor for this GPU model
         return -1
 
     @classmethod
     def fan_percent(cls) -> float:
-        gpu_to_use = cls.get_gpu_to_use()
-        if gpu_to_use is None:
-            # GPU not supported
-            return math.nan
+        # logger.info("fan_percent")
+        # gpu_to_use = cls.get_gpu_to_use()
+        # if gpu_to_use is None:
+        #     # GPU not supported
+        #     return math.nan
 
-        try:
-            for sensor in gpu_to_use.Sensors:
-                if sensor.SensorType == Hardware.SensorType.Control and sensor.Value is not None:
-                    return float(sensor.Value)
-        except:
-            pass
+        # try:
+        #     for sensor in gpu_to_use.Sensors:
+        #         if sensor.SensorType == Hardware.SensorType.Control and sensor.Value is not None:
+        #             return float(sensor.Value)
+        # except:
+        #     pass
 
         # No Fan Speed sensor for this GPU model
         return math.nan
 
     @classmethod
     def frequency(cls) -> float:
-        gpu_to_use = cls.get_gpu_to_use()
-        if gpu_to_use is None:
-            # GPU not supported
-            return math.nan
+        # logger.info("frequency")
+        # gpu_to_use = cls.get_gpu_to_use()
+        # if gpu_to_use is None:
+        #     # GPU not supported
+        #     return math.nan
 
-        try:
-            for sensor in gpu_to_use.Sensors:
-                if sensor.SensorType == Hardware.SensorType.Clock:
-                    # Keep only real core clocks, ignore effective core clocks
-                    if "Core" in str(sensor.Name) and "Effective" not in str(sensor.Name) and sensor.Value is not None:
-                        return float(sensor.Value)
-        except:
-            pass
+        # try:
+        #     for sensor in gpu_to_use.Sensors:
+        #         if sensor.SensorType == Hardware.SensorType.Clock:
+        #             # Keep only real core clocks, ignore effective core clocks
+        #             if "Core" in str(sensor.Name) and "Effective" not in str(sensor.Name) and sensor.Value is not None:
+        #                 return float(sensor.Value)
+        # except:
+        #     pass
 
         # No Frequency sensor for this GPU model
         return math.nan
 
     @classmethod
     def is_available(cls) -> bool:
+        logger.info("is_available")
         cls.gpu_name = get_gpu_name()
         return bool(cls.gpu_name)
 

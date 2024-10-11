@@ -1,0 +1,134 @@
+author: "@hicwic"
+
+display:
+  # Specify the display size in inch for this theme: 3.5" (default) or 5"
+  DISPLAY_SIZE: 3.5"
+
+  # Specify the display orientation for this theme: portrait or landscape (reverse orientation is managed in config.yaml)
+  DISPLAY_ORIENTATION: portrait
+
+  # Backplate RGB LED color (for HW revision 'flagship' devices only), set one that match your theme dominant color
+  DISPLAY_RGB_LED: 255, 0, 0
+
+static_images:
+  BACKGROUND:
+    PATH: background.png
+    X: 0
+    Y: 0
+    WIDTH: 320
+    HEIGHT: 480
+
+STATS:
+  CPU:
+    PERCENTAGE:
+      INTERVAL: 1
+      RADIAL:
+        SHOW: True
+        X: 110
+        Y: 240
+        RADIUS: 80
+        WIDTH: 26
+        MIN_VALUE: 0
+        MAX_VALUE: 100
+        ANGLE_START: 110
+        ANGLE_END: 250
+        ANGLE_STEPS: 10
+        ANGLE_SEP: 0
+        CLOCKWISE: True
+        BAR_COLOR:  0, 131, 245
+        BAR_BACKGROUND_COLOR:  0, 31, 75
+        DRAW_BAR_BACKGROUND: True
+        BAR_DECORATION: Ellipse
+        SHOW_TEXT: False
+        SHOW_UNIT: True
+        FONT: roboto/Roboto-Bold.ttf
+        FONT_SIZE: 20
+        FONT_COLOR: 0, 250, 0
+        #BACKGROUND_COLOR: 200, 200, 200
+        CUSTOM_BBOX: [0, 0, 80, 160]
+        TEXT_OFFSET: [-30, 0]
+    TEMPERATURE:
+      INTERVAL: 5
+      TEXT:
+        SHOW: True
+        X: 58
+        Y: 224
+        RADIUS: 80
+        WIDTH: 26
+        MIN_VALUE: 0
+        MAX_VALUE: 100
+        ANGLE_START: 200
+        ANGLE_END: 340
+        ANGLE_STEPS: 10
+        ANGLE_SEP: 0
+        CLOCKWISE: True
+        BAR_COLOR:  0, 250, 0
+        BAR_BACKGROUND_COLOR:  0, 50, 0
+        DRAW_BAR_BACKGROUND: True
+        BAR_DECORATION: Ellipse
+        SHOW_TEXT: True
+        SHOW_UNIT: True
+        FONT: jetbrains-mono/JetBrainsMono-Bold.ttf
+        FONT_SIZE: 38
+        FONT_COLOR: 0, 131, 245
+        #BACKGROUND_COLOR: 200, 200, 200
+        CUSTOM_BBOX: [0, 0, 160, 80]
+        TEXT_OFFSET: [-10, -20]
+  GPU:
+    INTERVAL: 1
+    PERCENTAGE:
+      RADIAL:
+        SHOW: True
+        X: 210
+        Y: 240
+        RADIUS: 80
+        WIDTH: 26
+        MIN_VALUE: 0
+        MAX_VALUE: 100
+        ANGLE_START: 70
+        ANGLE_END: 290
+        ANGLE_STEPS: 10
+        ANGLE_SEP: 0
+        CLOCKWISE: False
+        BAR_COLOR: 255, 0, 0
+        BAR_BACKGROUND_COLOR:  50, 0, 0
+        DRAW_BAR_BACKGROUND: True
+        BAR_DECORATION: Ellipse
+        SHOW_TEXT: False
+        SHOW_UNIT: True
+        FONT: roboto/Roboto-Bold.ttf
+        FONT_SIZE: 20
+        FONT_COLOR: 255, 0, 0
+        # BACKGROUND_COLOR: 0, 0, 0
+        CUSTOM_BBOX: [80, 0, 160, 160]
+        TEXT_OFFSET: [30, 0]
+    TEMPERATURE:
+      TEXT:
+        SHOW: True
+        X: 160
+        Y: 224
+        RADIUS: 80
+        WIDTH: 26
+        MIN_VALUE: 0
+        MAX_VALUE: 100
+        ANGLE_START: 160
+        ANGLE_END: 20
+        ANGLE_STEPS: 10
+        ANGLE_SEP: 0
+        CLOCKWISE: False
+        BAR_COLOR:  255, 0, 0
+        BAR_BACKGROUND_COLOR: 255, 255, 255
+        DRAW_BAR_BACKGROUND: False
+        BACKGROUND_IMAGE: background.png
+        BAR_DECORATION: Ellipse
+        SHOW_TEXT: True
+        SHOW_UNIT: True
+        FONT: jetbrains-mono/JetBrainsMono-Bold.ttf
+        FONT_SIZE: 38
+        FONT_COLOR: 255, 0, 0
+        BACKGROUND_COLOR: 255, 255, 255
+        CUSTOM_BBOX: [0, 80, 160, 160]
+        TEXT_OFFSET: [10, 20]
+ 
+
+
